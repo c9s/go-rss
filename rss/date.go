@@ -5,7 +5,7 @@ import "time"
 type Date string
 
 func (self Date) Parse() (time.Time, error) {
-	t, err := time.Parse("Mon, 02 Jan 2006 15:04:05 -0700", string(self)) // Wordpress format
+	t, err := time.Parse(time.RFC1123Z, string(self)) // Wordpress format
 	if err != nil {
 		t, err = time.Parse(time.RFC822, string(self)) // RSS 2.0 spec
 	}
@@ -27,3 +27,4 @@ func (self Date) MustFormat(format string) string {
 	}
 	return s
 }
+
