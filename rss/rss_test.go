@@ -20,7 +20,12 @@ func TestRSSXML(t *testing.T) {
 			t.Errorf("Item Title is empty")
 		}
 	}
-	_ = channel
-	_ = err
+
+	err = WriteFile("tests/appcast-out.xml",rss)
+	if err != nil {
+		t.Error(err)
+	}
+
 }
+
 

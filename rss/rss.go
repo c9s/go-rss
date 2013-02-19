@@ -43,16 +43,16 @@ func ReadUrl(url string) (*rss, error) {
 	return ParseContent(text)
 }
 
-func WriteFile(file string, rss * rss ) ([]byte, error) {
+func WriteFile(file string, rss * rss ) (error) {
 	text, err := xml.Marshal(&rss)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	err = ioutil.WriteFile(file, text, 0666)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return text, nil
+	return nil
 }
 
 
