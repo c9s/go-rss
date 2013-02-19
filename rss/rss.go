@@ -59,7 +59,10 @@ func ReadUrl(url string) (*rss, error) {
 }
 
 func Write(rss * rss) ([]byte,error) {
-	rss.Version = "2.0"
+	if len(rss.Version) == 0 {
+		rss.Version = "2.0"
+	}
+
 	text, err := xml.Marshal(&rss)
 	if err != nil {
 		return nil,err
@@ -68,7 +71,9 @@ func Write(rss * rss) ([]byte,error) {
 }
 
 func WriteIndent(rss *rss) ([]byte,error) {
-	rss.Version = "2.0"
+	if len(rss.Version) == 0 {
+		rss.Version = "2.0"
+	}
 	text, err := xml.MarshalIndent(&rss,"","  ")
 	if err != nil {
 		return nil,err
