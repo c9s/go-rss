@@ -1,7 +1,7 @@
 package rss
 
 import "testing"
-import "fmt"
+// import "fmt"
 
 func TestRSSXML(t *testing.T) {
 	rss, err := ReadFile("tests/appcast.xml");
@@ -32,7 +32,7 @@ func TestRSSXML(t *testing.T) {
 	if len(text) == 0 {
 		t.Error("empty output")
 	}
-	fmt.Println("%s",string(text))
+	// fmt.Println("%s",string(text))
 	_ = text
 }
 
