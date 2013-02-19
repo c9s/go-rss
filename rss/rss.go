@@ -10,7 +10,18 @@ import (
 )
 
 type rss struct {
-	Channel Channel `xml:"channel"`
+	Channel			Channel `xml:"channel"`
+	Version			string `xml:"version,attr"`
+	// <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+}
+
+type bytes []byte
+
+func (b bytes) Concat(old2 []byte) []byte {
+   newslice := make([]byte, len(b) + len(old2))
+   copy(newslice, b)
+   copy(newslice[len(b):], old2)
+   return newslice
 }
 
 func ParseContent(text []byte) (*rss, error) {
@@ -20,6 +31,10 @@ func ParseContent(text []byte) (*rss, error) {
 		return nil, err
 	}
 	return &rss, nil
+}
+
+func GetXmlHeader() ([]byte) {
+	return []byte("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n")
 }
 
 func ReadFile(file string) (*rss, error) {
@@ -43,8 +58,27 @@ func ReadUrl(url string) (*rss, error) {
 	return ParseContent(text)
 }
 
-func WriteFile(file string, rss * rss ) (error) {
+func Write(rss * rss) ([]byte,error) {
+	rss.Version = "2.0"
 	text, err := xml.Marshal(&rss)
+	if err != nil {
+		return nil,err
+	}
+	return bytes( GetXmlHeader() ).Concat(text),nil
+}
+
+func WriteIndent(rss *rss) ([]byte,error) {
+	rss.Version = "2.0"
+	text, err := xml.MarshalIndent(&rss,"","  ")
+	if err != nil {
+		return nil,err
+	}
+	return bytes( GetXmlHeader() ).Concat(text),nil
+}
+
+
+func WriteFile(file string, rss * rss ) (error) {
+	text, err := Write(rss)
 	if err != nil {
 		return err
 	}

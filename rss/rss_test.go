@@ -1,6 +1,7 @@
 package rss
 
 import "testing"
+import "fmt"
 
 func TestRSSXML(t *testing.T) {
 	rss, err := ReadFile("tests/appcast.xml");
@@ -21,10 +22,11 @@ func TestRSSXML(t *testing.T) {
 		}
 	}
 
-	err = WriteFile("tests/appcast-out.xml",rss)
+	text, err := WriteIndent(rss)
 	if err != nil {
 		t.Error(err)
 	}
+	fmt.Println("%s",string(text))
 
 }
 
