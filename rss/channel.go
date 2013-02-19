@@ -9,4 +9,8 @@ type Channel struct {
 	Items         []Item `xml:"item"`
 }
 
+func (c * Channel) AddItem(item * Item) {
+	c.Items = append(c.Items , *item)
+}
+
 
