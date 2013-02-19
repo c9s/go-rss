@@ -11,7 +11,7 @@ Usage
 -----
 
     import "github.com/c9s/go-rss/rss"
-    url := rss.ReadUrl("http://....path/to/feed.xml")
+    rss, err := rss.ReadUrl("http://....path/to/feed.xml")
 
 
 License

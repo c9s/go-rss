@@ -3,14 +3,13 @@ package rss
 import "testing"
 
 func TestRSSXML(t *testing.T) {
-	channel, err := ReadFile("tests/appcast.xml");
+	rss, err := ReadFile("tests/appcast.xml");
 
 	if err != nil {
 		t.Errorf("RSS read fail.")
 	}
-	if channel == nil {
-		t.Errorf("Channel is empty.")
-	}
+
+	channel := rss.Channel
 
 	if len(channel.Item) == 0 {
 		t.Errorf("Item length is zero")
