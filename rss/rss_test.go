@@ -1,6 +1,7 @@
 package rss
 
 import "testing"
+// import "fmt"
 
 func TestRSSXML(t *testing.T) {
 	rss, err := ReadFile("tests/appcast.xml");
@@ -9,17 +10,20 @@ func TestRSSXML(t *testing.T) {
 		t.Errorf("RSS read fail.")
 	}
 
-	channel := rss.Channel
-
-	if len(channel.Items) == 0 {
+	if len(rss.Channel.Items) == 0 {
 		t.Errorf("Item length is zero")
 	}
 
-	for _ , item := range channel.Items {
+	for _ , item := range rss.Channel.Items {
 		if len(item.Title) == 0 {
 			t.Errorf("Item Title is empty")
 		}
 	}
+
+	newItem := Item{}
+	newItem.Title = "New Title"
+	newItem.Content = "New Content"
+	rss.Channel.AddItem(&newItem)
 
 	text, err := WriteIndent(rss)
 	if err != nil {
@@ -29,6 +33,7 @@ func TestRSSXML(t *testing.T) {
 		t.Error("empty output")
 	}
 	// fmt.Println("%s",string(text))
+	_ = text
 }
 
 

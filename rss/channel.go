@@ -13,4 +13,8 @@ func (c * Channel) AddItem(item * Item) {
 	c.Items = append(c.Items , *item)
 }
 
+func (c * Channel) ItemLength() (int) {
+	return len(c.Items)
+}
+
 
