@@ -9,7 +9,8 @@ import (
 	"net/http"
 )
 
-type rss struct {
+type RSS struct {
+	XMLName   xml.Name `xml:"rss"`
 	Channel			Channel `xml:"channel"`
 	Version			string `xml:"version,attr"`
 	// <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -24,8 +25,8 @@ func (b bytes) Concat(old2 []byte) []byte {
    return newslice
 }
 
-func ParseContent(text []byte) (*rss, error) {
-	rss := rss{}
+func ParseContent(text []byte) (*RSS, error) {
+	rss := RSS{}
 	err := xml.Unmarshal(text, &rss)
 	if err != nil {
 		return nil, err
@@ -37,7 +38,7 @@ func GetXmlHeader() ([]byte) {
 	return []byte("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n")
 }
 
-func ReadFile(file string) (*rss, error) {
+func ReadFile(file string) (*RSS, error) {
 	text, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
@@ -45,7 +46,7 @@ func ReadFile(file string) (*rss, error) {
 	return ParseContent(text)
 }
 
-func ReadUrl(url string) (*rss, error) {
+func ReadUrl(url string) (*RSS, error) {
 	response, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -58,7 +59,7 @@ func ReadUrl(url string) (*rss, error) {
 	return ParseContent(text)
 }
 
-func Write(rss * rss) ([]byte,error) {
+func Write(rss * RSS) ([]byte,error) {
 	if len(rss.Version) == 0 {
 		rss.Version = "2.0"
 	}
@@ -70,7 +71,7 @@ func Write(rss * rss) ([]byte,error) {
 	return bytes( GetXmlHeader() ).Concat(text),nil
 }
 
-func WriteIndent(rss *rss) ([]byte,error) {
+func WriteIndent(rss *RSS) ([]byte,error) {
 	if len(rss.Version) == 0 {
 		rss.Version = "2.0"
 	}
@@ -82,7 +83,7 @@ func WriteIndent(rss *rss) ([]byte,error) {
 }
 
 
-func WriteFile(file string, rss * rss ) (error) {
+func WriteFile(file string, rss * RSS ) (error) {
 	text, err := Write(rss)
 	if err != nil {
 		return err
