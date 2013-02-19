@@ -2,14 +2,14 @@ package rss
 
 type Item struct {
 	Title       string        `xml:"title"`
-	Link        string        `xml:"link"`
-	Comments    string        `xml:"comments"`
+	Link        string        `xml:"link,omitempty"`
+	Comments    string        `xml:"comments,omitempty"`
 	PubDate     Date          `xml:"pubDate"`
 	GUID        string        `xml:"guid"`
-	Category    []string      `xml:"category"`
+	Category    []string      `xml:"category,omitempty"`
 	Enclosure   ItemEnclosure `xml:"enclosure"`
 	Description string        `xml:"description"`
-	Content     string        `xml:"content"`
+	Content     string        `xml:"content,omitempty"`
 }
 
 func (i *Item) AddCategory (c string) {
