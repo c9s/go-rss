@@ -16,3 +16,8 @@ func (i *Item) AddCategory (c string) {
 	i.Category = append(i.Category,c)
 }
 
+func (item * Item) SetEnclosure(enclosure * ItemEnclosure) {
+	item.Enclosure = *enclosure
+}
+
+
