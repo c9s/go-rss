@@ -11,3 +11,8 @@ type Item struct {
 	Description string        `xml:"description"`
 	Content     string        `xml:"content"`
 }
+
+func (i *Item) AddCategory (c string) {
+	i.Category = append(i.Category,c)
+}
+
