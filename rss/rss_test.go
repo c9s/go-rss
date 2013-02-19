@@ -11,11 +11,11 @@ func TestRSSXML(t *testing.T) {
 
 	channel := rss.Channel
 
-	if len(channel.Item) == 0 {
+	if len(channel.Items) == 0 {
 		t.Errorf("Item length is zero")
 	}
 
-	for _ , item := range channel.Item {
+	for _ , item := range channel.Items {
 		if len(item.Title) == 0 {
 			t.Errorf("Item Title is empty")
 		}

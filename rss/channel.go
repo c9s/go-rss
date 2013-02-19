@@ -6,7 +6,7 @@ type Channel struct {
 	Description   string `xml:"description"`
 	Language      string `xml:"language"`
 	LastBuildDate Date   `xml:"lastBuildDate"`
-	Item          []Item `xml:"item"`
+	Items         []Item `xml:"item"`
 }
 
 
